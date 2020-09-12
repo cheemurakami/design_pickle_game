@@ -1,0 +1,32 @@
+.title{
+  margin-bottom: 30px;
+  font-family: montserrat,sans-serif;
+  font-style: normal;
+  font-size: 32px;
+  line-height: 23px;
+  text-align: center;
+  letter-spacing: -.015em;
+  color: #666;
+}
+.high-lighted{
+  color:#39ca86;
+}
+.card-container{
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+  border-radius: 6px; 
+  box-shadow: 0 4px 6px rgba(104,106,110,.35);
+  margin-right: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+.card-img1{
+  height: 100%;
+}
+.card-wrapper{
+  display: flex;
+}
+.card-wrapper-row{
+
+}
