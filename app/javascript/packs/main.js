@@ -27,7 +27,13 @@ shuffledImages.map((_, i) => {
 });
 
 let guessedPositionNum = [];
+let counter = 0;
+let locked = false;
+
 $(".card-image").click((e) => {
+  if (locked){
+    return;
+  } 
   let imageEl = e.target;
   if (imageEl.src !== hiddenImageUrl) {
     return console.log("already flipped");
@@ -53,8 +59,11 @@ const storePositions = (imagePosition) => {
 
 const checkMatch = (firstGuessedUrl, secondGuessedUrl) => {
   if (firstGuessedUrl === secondGuessedUrl) {
-    console.log("matched!");
+    counter ++;
+    console.log(counter, "Matched");
+    $(".result").html(`<p>${counter} Matched</p>`);
   } else if (guessedPositionNum.length == 2) {
+    locked = true;
     setTimeout(() => {
       $(`.card-image[data-position="${guessedPositionNum[0]}"]`).attr(
         "src",
@@ -64,6 +73,7 @@ const checkMatch = (firstGuessedUrl, secondGuessedUrl) => {
         "src",
         hiddenImageUrl
       );
+      locked = false;
     }, 2000);
   }
 };
