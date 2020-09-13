@@ -1,10 +1,3 @@
-
-$(".card-image").click((e) => {
-  let imageEl = e.target
-  let imagePosition = $(imageEl).data("position");
-  $(imageEl).attr("src", shuffledImages[imagePosition]);
-})
-
 const imageUrls = [
   "https://cdn.filestackcontent.com/0xpImnBSQ0i0sZ62RwHU", 
   "https://cdn.filestackcontent.com/5nFP5LXmRBKNtZPnSZoM", 
@@ -20,4 +13,18 @@ function shuffle(arr) {
   return arr;
 }
 
-const shuffledImages = shuffle(imageUrls);
+const shuffledImages = shuffle(imageUrls.concat(imageUrls));
+
+//displaying hidden cards
+shuffledImages.map((_,i) => {
+  $(".card-wrapper").append(`<div class="card-container"><img class="card-image" data-position=${i} src="https://cdn.filestackcontent.com/mac0VBHdShaBLwOxpq66"></div>`)
+  if ((i + 1) == shuffledImages.length / 2){
+    $(".card-wrapper").append('<div class="break"></div>')
+  }
+})
+
+$(".card-image").click((e) => {
+  let imageEl = e.target
+  let imagePosition = $(imageEl).data("position");
+  $(imageEl).attr("src", shuffledImages[imagePosition]);
+})
