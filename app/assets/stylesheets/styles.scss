@@ -57,5 +57,20 @@
   img{
     height: 100%;
     width: 100%;
+    animation: r7 1s linear;
+  }
+  @keyframes r7 {
+    0%   { transform: rotateY(0deg); }
+    100% { transform: rotateY(360deg); }
   }
 }
+.modal{
+  font-family: montserrat,sans-serif;
+  font-style: normal;
+}
+// a .btn{
+//   "color: #39ca86;"
+// }
+$theme-colors:(
+  "success": #39ca86
+)

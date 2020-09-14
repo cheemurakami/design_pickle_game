@@ -63,6 +63,10 @@ const checkMatch = (firstGuessedUrl, secondGuessedUrl) => {
     console.log(counter, "Matched");
 
     $(".result").html(`<p>${counter} Matched</p><img src=${firstGuessedUrl}>`);
+
+    if(counter === 4){
+      $('#myModal').modal();
+    }
   } else if (guessedPositionNum.length == 2) {
     locked = true;
     setTimeout(() => {
