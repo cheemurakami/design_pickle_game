@@ -1,5 +1,5 @@
 .title{
-  margin-bottom: 30px;
+  margin-bottom: 80px;
   font-family: montserrat,sans-serif;
   font-style: normal;
   font-size: 32px;
@@ -38,8 +38,8 @@
   height: 0;
 }
 .result{
-  height: 212px;
-  width: 212px;
+  height: 250px;
+  width: 250px;
   background-size: 100% 100%;
   background-repeat: no-repeat;
   text-align: center;
@@ -50,6 +50,7 @@
   position: relative;
   p{
     position: absolute;
+    width: 100%;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -57,11 +58,20 @@
   img{
     height: 100%;
     width: 100%;
-    animation: r7 1s linear;
+    animation: pairedImg 1s linear;
   }
-  @keyframes r7 {
+  @keyframes pairedImg {
     0%   { transform: rotateY(0deg); }
     100% { transform: rotateY(360deg); }
+  }
+  .animate-title{
+    position: absolute;
+    top: 40%;
+    animation: titleMsg 1s linear infinite alternate;
+  }
+  @keyframes titleMsg {
+    0%   { transform: translateY(15px); }
+    100% { transform: translateY(-15px); }
   }
 }
 .modal{

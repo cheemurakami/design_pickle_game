@@ -21,9 +21,6 @@ shuffledImages.map((_, i) => {
   $(".card-wrapper").append(
     `<div class="card-container"><img class="card-image" data-position=${i} src=${hiddenImageUrl}></div>`
   );
-  if ((i + 1) % 4 == 0) {
-    $(".card-wrapper").append('<div class="break"></div>');
-  }
 });
 
 let guessedPositionNum = [];
