@@ -1,6 +1,6 @@
 //GLOVAL VARS
 let urlsByGameSize = [];
-let guessedPositionNum = []; 
+let guessedPositionNum = [];
 let counter = 0;
 let locked = false;
 const imageUrls = [
@@ -9,61 +9,62 @@ const imageUrls = [
   "https://cdn.filestackcontent.com/yEU3afnaR3izTbJ2yCNK",
   "https://cdn.filestackcontent.com/2yPB3iM8RQ2clOOPZZNa",
   "https://cdn.filestackcontent.com/BdTUsuGdQBemFqTidt5j",
-  "https://cdn.filestackcontent.com/dztHMgumRL2AUPkuyRbo"
+  "https://cdn.filestackcontent.com/dztHMgumRL2AUPkuyRbo",
 ];
 const hiddenImageUrl = "https://cdn.filestackcontent.com/mac0VBHdShaBLwOxpq66";
-
 
 //SELECTING GAMESIZE
 $("#inputGroupSelect04").change((e) => {
   let gameSize = e.target.value;
-  if (gameSize === "s"){
-    urlsByGameSize = imageUrls.slice(0,4);
-  } else if (gameSize === "m"){
-    urlsByGameSize = imageUrls.slice(0,5);
+  if (gameSize === "s") {
+    urlsByGameSize = imageUrls.slice(0, 4);
+  } else if (gameSize === "m") {
+    urlsByGameSize = imageUrls.slice(0, 5);
   } else {
-    urlsByGameSize = imageUrls.slice(0,6);
+    urlsByGameSize = imageUrls.slice(0, 6);
   }
   startGame();
-})
-
+});
 
 //STARTING GAME
 const startGame = () => {
   resetGame();
 
   const shuffledImages = shuffle(urlsByGameSize.concat(urlsByGameSize));
-  
+
   //displaying hidden cards
   shuffledImages.map((_, i) => {
     $(".card-wrapper").append(
       `<div class="card-container"><img class="card-image" data-position=${i} src=${hiddenImageUrl}></div>`
     );
   });
-  setupClickHandler(shuffledImages);  
-}
+  setupClickHandler(shuffledImages);
+};
 
-//CLICKING IMAGES CHECKING MATCHES 
+//CLICKING IMAGES CHECKING MATCHES
 const setupClickHandler = (shuffledImages) => {
   $(".card-image").click((e) => {
     if (locked) {
       return;
     }
+
+    playSound("flip");
+
     let imageEl = e.target;
     if (imageEl.src !== hiddenImageUrl) {
       return;
     }
     let imagePosition = $(imageEl).data("position");
     $(imageEl).attr("src", shuffledImages[imagePosition]);
-  
+
     storePositions(imagePosition);
-  
+
     let firstGuessedUrl = shuffledImages[guessedPositionNum[0]];
     let secondGuessedUrl = shuffledImages[guessedPositionNum[1]];
-  
+
     checkMatch(firstGuessedUrl, secondGuessedUrl);
   });
-}
+};
 
 //STORING POSITIONS FOR 2 IMAGES
 const storePositions = (imagePosition) => {
@@ -73,18 +74,20 @@ const storePositions = (imagePosition) => {
   }
 };
 
-//CHECKING MATCHES 
+//CHECKING MATCHES
 const checkMatch = (firstGuessedUrl, secondGuessedUrl) => {
   if (firstGuessedUrl === secondGuessedUrl) {
     counter++;
-
+    playSound("matched");
     $(".result").html(`<p>${counter} Matched</p><img src=${firstGuessedUrl}>`);
 
-    if(counter === urlsByGameSize.length){
-      $('#myModal').modal();
+    //WHEN YOU WIN
+    if (counter === urlsByGameSize.length) {
+      setTimeout(() => {
+        playSound("tada");
+        $("#myModal").modal();
+      }, 1000); 
     }
-
-
   } else if (guessedPositionNum.length == 2) {
     locked = true;
     setTimeout(() => {
@@ -117,4 +120,10 @@ const resetGame = () => {
   locked = false;
   $(".card-wrapper").html("");
   $(".result").html("");
+};
+
+
+const playSound = (soundName) => {
+  const audio = $(`#${soundName}`)[0];
+  audio.play();
 }
