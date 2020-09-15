@@ -1,8 +1,4 @@
 //GLOVAL VARS
-let urlsByGameSize = [];
-let guessedPositionNum = [];
-let counter = 0;
-let locked = false;
 const imageUrls = [
   "https://cdn.filestackcontent.com/0xpImnBSQ0i0sZ62RwHU",
   "https://cdn.filestackcontent.com/5nFP5LXmRBKNtZPnSZoM",
@@ -12,6 +8,10 @@ const imageUrls = [
   "https://cdn.filestackcontent.com/dztHMgumRL2AUPkuyRbo",
 ];
 const hiddenImageUrl = "https://cdn.filestackcontent.com/mac0VBHdShaBLwOxpq66";
+let urlsByGameSize = imageUrls.slice(0, 4);
+let guessedPositionNum = [];
+let counter = 0;
+let locked = false;
 
 //SELECTING GAMESIZE
 $("#inputGroupSelect04").change((e) => {
@@ -86,7 +86,7 @@ const checkMatch = (firstGuessedUrl, secondGuessedUrl) => {
       setTimeout(() => {
         playSound("tada");
         $("#myModal").modal();
-      }, 1000); 
+      }, 1000);
     }
   } else if (guessedPositionNum.length == 2) {
     locked = true;
@@ -119,11 +119,14 @@ const resetGame = () => {
   counter = 0;
   locked = false;
   $(".card-wrapper").html("");
-  $(".result").html("");
+  $(".result").html('<div class="title animate-title">👈 Pick a card!</div>');
 };
 
-
+//PLAYING SOUND
 const playSound = (soundName) => {
   const audio = $(`#${soundName}`)[0];
   audio.play();
-}
+};
+
+//WHEN LOADED
+startGame();
